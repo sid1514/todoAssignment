@@ -7,13 +7,17 @@ const TodoHome = () => {
   
   const [description, setDescription] = useState("");
   ;
-  const handleAddTask = async() => {
-    try {
-      const res = await axios.post(`${process.env.REACT_APP_BACKENDURL}/addTask`,{TaskName:task,TaskDescription:description});
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleAddTask = async () => {
+    if (!task && !description) return
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_BACKENDURL}/addTask`,
+          { TaskName: task, TaskDescription: description }
+        );
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
    
   };
   return (
@@ -34,6 +38,7 @@ const TodoHome = () => {
                     type="text"
                     className="rounded-xl border border-yellow-600 h-8 text-black p-2"
                     onChange={(e) => setTask(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="flex flex-col md:w-1/2 w-11/12">
@@ -43,6 +48,7 @@ const TodoHome = () => {
                     value={description}
                     className="rounded-xl border border-yellow-600 h-8 text-black p-2 "
                     onChange={(e) => setDescription(e.target.value)}
+                    required
                   />
                 </div>
               </div>
